@@ -1,5 +1,13 @@
 FROM jenkins
 
+USER root
+RUN apt-get update \
+      && apt-get install -y sudo \
+      && rm -rf /var/lib/apt/lists/*
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+ 
+USER jenkins
+
 RUN /usr/local/bin/install-plugins.sh authentication-tokens icon-shim credentials ssh-credentials 
 RUN /usr/local/bin/install-plugins.sh structs junit javadoc mailer script-security jackson2-api matrix-project ace-editor scm-api jquery-detached cloudbees-folder branch-api durable-task conditional-buildstep parameterized-trigger git-server pipeline-rest-api handlebars momentjs 
 RUN /usr/local/bin/install-plugins.sh maven-plugin aws-java-sdk copyartifact

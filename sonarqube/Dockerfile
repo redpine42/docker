@@ -4,8 +4,6 @@ MAINTAINER Dan Brown <danb@redpine.com>
 
 ENV SONAR_VERSION=6.0 \
     SONARQUBE_HOME=/opt/sonarqube \
-    # Database configuration
-    # Defaults to using H2
     SONARQUBE_JDBC_USERNAME=sonar \
     SONARQUBE_JDBC_PASSWORD=sonar \
     SONARQUBE_JDBC_URL=
@@ -38,8 +36,8 @@ VOLUME ["$SONARQUBE_HOME/data", "$SONARQUBE_HOME/extensions"]
 
 WORKDIR $SONARQUBE_HOME
 
-COPY run.sh $SONARQUBE_HOME/bin/
+COPY sonarStart.sh $SONARQUBE_HOME/bin/
 
 ADD QualityProfiles $SONARQUBE_HOME/QualityProfiles
 
-ENTRYPOINT ["/opt/sonarqube/bin/run.sh"]
+ENTRYPOINT ["/opt/sonarqube/bin/sonarStart.sh"]
